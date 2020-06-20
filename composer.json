@@ -1,0 +1,13 @@
+{
+    "name": "ava/brain-games",
+    "authors": [
+        {
+            "name": "ava",
+            "email": "ava239@yandex.ru"
+        }
+    ],
+    "bin": [
+        "bin/brain-games"
+    ],
+    "require": {}
+}
