@@ -1,5 +1,7 @@
 {
     "name": "ava/brain-games",
+    "type": "library",
+    "description": "CLI games",
     "authors": [
         {
             "name": "ava",
