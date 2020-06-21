@@ -2,6 +2,7 @@
     "name": "ava/brain-games",
     "type": "library",
     "description": "CLI games",
+    "license": "MIT",
     "authors": [
         {
             "name": "ava",
