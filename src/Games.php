@@ -1,28 +1,31 @@
 <?php
 
-namespace Brain\Games\Game;
+namespace Brain\Games\Games;
 
 use function cli\line;
 use function cli\prompt;
 
-function welcome()
+function welcome($rules)
 {
     line('Welcome to the Brain Game!');
-    line('Answer "yes" if the number is even, otherwise answer "no".');
+    line($rules);
     line('');
     $name = prompt('May I have your name?');
     line("Hello, %s!", $name);
     return $name;
 }
 
-function run()
+function run($game)
 {
-    $name = welcome();
+    $dataFunction = "\\Brain\\Games\\Games\\{$game}\\getGameData";
+    $questionFunction = "\\Brain\\Games\\Games\\{$game}\\question";
+    $gameData = $dataFunction();
+    $name = welcome($gameData['rules']);
     $question = $correct = 0;
     $maxQuestions = 3;
     while ($question < $maxQuestions && $question === $correct) {
         $question++;
-        if (question()) {
+        if (question($questionFunction)) {
             $correct++;
         }
     }
@@ -33,19 +36,20 @@ function run()
     }
 }
 
-function question()
+function question($question)
 {
-    $minInt = 1;
-    $maxInt = 300;
-    $randomInt = rand($minInt, $maxInt);
-    line('Question: %s', $randomInt);
-    $supposedAnswer = $randomInt % 2 === 0 ? 'yes' : 'no';
+    [$questionText, $answerText] = $question();
+    line('Question: %s', $questionText);
     $answer = prompt('Your answer');
-    if ($answer === $supposedAnswer) {
+    if ($answer === $answerText) {
         line('Correct!');
         return true;
     } else {
-        line("'%s' is wrong answer ;(. Correct answer was '%s'.", $answer, $supposedAnswer);
+        line(
+            "'%s' is wrong answer ;(. Correct answer was '%s'.",
+            $answer,
+            $answerText
+        );
         return false;
     }
 }
