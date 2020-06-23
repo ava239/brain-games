@@ -20,3 +20,10 @@ $ brain-calc
 ```
 
 [![asciicast](https://asciinema.org/a/341981.svg)](https://asciinema.org/a/341981)
+
+## Run "GCD" game
+```sh
+$ brain-calc
+```
+
+[![asciicast](https://asciinema.org/a/342193.svg)](https://asciinema.org/a/342193)
