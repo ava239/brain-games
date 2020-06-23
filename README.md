@@ -23,7 +23,7 @@ $ brain-calc
 
 ## Run "GCD" game
 ```sh
-$ brain-calc
+$ brain-gcd
 ```
 
 [![asciicast](https://asciinema.org/a/342193.svg)](https://asciinema.org/a/342193)
