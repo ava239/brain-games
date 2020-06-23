@@ -5,8 +5,9 @@ namespace Brain\Games\Games;
 use function cli\line;
 use function cli\prompt;
 
-function welcome($rules)
+function welcome($game)
 {
+    $rules = call_user_func(__NAMESPACE__ . "\\{$game}\\getGameData");
     line('Welcome to the Brain Game!');
     line($rules);
     line('');
@@ -17,15 +18,12 @@ function welcome($rules)
 
 function run($game)
 {
-    $dataFunction = "\\Brain\\Games\\Games\\{$game}\\getGameData";
-    $questionFunction = "\\Brain\\Games\\Games\\{$game}\\question";
-    $gameData = $dataFunction();
-    $name = welcome($gameData['rules']);
+    $name = welcome($game);
     $question = $correct = 0;
     $maxQuestions = 3;
     while ($question < $maxQuestions && $question === $correct) {
         $question++;
-        if (question($questionFunction)) {
+        if (questionIteration($game)) {
             $correct++;
         }
     }
@@ -36,9 +34,16 @@ function run($game)
     }
 }
 
-function question($question)
+function question($game)
 {
-    [$questionText, $answerText] = $question();
+    $question = call_user_func(__NAMESPACE__ . "\\{$game}\\question");
+    $answer = call_user_func(__NAMESPACE__ . "\\{$game}\\logic", $question);
+    return [$question, $answer];
+}
+
+function questionIteration($game)
+{
+    [$questionText, $answerText] = question($game);
     line('Question: %s', $questionText);
     $answer = prompt('Your answer');
     if ($answer === $answerText) {

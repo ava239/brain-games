@@ -4,12 +4,10 @@ namespace Brain\Games\Games\Calc;
 
 function getGameData()
 {
-    return [
-        'rules' => 'What is the result of the expression?',
-    ];
+    return 'What is the result of the expression?';
 }
 
-function question()
+function question(): string
 {
     $minInt = 1;
     $maxInt = 20;
@@ -17,7 +15,22 @@ function question()
     $operand1 = rand($minInt, $maxInt);
     $operand2 = rand($minInt, $maxInt);
     $operation = $operations[rand(0, 2)];
-    $question = $operand1 . ' ' . $operation . ' ' . $operand2;
-    $answer = (string)eval("return $question;");
-    return [$question, $answer];
+    return $operand1 . ' ' . $operation . ' ' . $operand2;
+}
+
+function logic(string $question): string
+{
+    [$op1, $operation, $op2] = explode(' ', $question);
+    $result = '';
+    switch ($operation) {
+        case '+':
+            $result = (int)$op1 + (int)$op2;
+            break;
+        case '-':
+            $result = (int)$op1 - (int)$op2;
+            break;
+        case '*':
+            $result = (int)$op1 * (int)$op2;
+    }
+    return (string)$result;
 }
