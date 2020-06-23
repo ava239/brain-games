@@ -19,15 +19,14 @@ function welcome($game)
 function run($game)
 {
     $name = welcome($game);
-    $question = $correct = 0;
+    $question = 0;
     $maxQuestions = 3;
-    while ($question < $maxQuestions && $question === $correct) {
-        $question++;
+    while ($question < $maxQuestions) {
         if (questionIteration($game)) {
-            $correct++;
+            $question++;
         }
     }
-    if ($question === $correct) {
+    if ($question === $maxQuestions) {
         line("Congratulations, %s!", $name);
     } else {
         line("Let's try again, %s!", $name);
