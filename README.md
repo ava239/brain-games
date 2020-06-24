@@ -34,3 +34,10 @@ $ brain-progression
 ```
 
 [![asciicast](https://asciinema.org/a/342742.svg)](https://asciinema.org/a/342742)
+
+## Run "Prime" game
+```sh
+$ brain-prime
+```
+
+[![asciicast](https://asciinema.org/a/342781.svg)](https://asciinema.org/a/342781)
