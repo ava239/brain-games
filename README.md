@@ -27,3 +27,10 @@ $ brain-gcd
 ```
 
 [![asciicast](https://asciinema.org/a/342193.svg)](https://asciinema.org/a/342193)
+
+## Run "Progression" game
+```sh
+$ brain-progression
+```
+
+[![asciicast](https://asciinema.org/a/342742.svg)](https://asciinema.org/a/342742)
