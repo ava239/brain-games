@@ -21,9 +21,11 @@ function run($game)
     $name = welcome($game);
     $question = 0;
     $maxQuestions = 3;
-    while ($question < $maxQuestions) {
+    for ($i = 0; $i < $maxQuestions; $i++) {
         if (questionIteration($game)) {
             $question++;
+        } else {
+            break;
         }
     }
     if ($question === $maxQuestions) {
