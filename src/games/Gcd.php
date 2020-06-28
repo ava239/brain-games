@@ -2,23 +2,32 @@
 
 namespace Brain\Games\Games\Gcd;
 
-function getGameData()
+use Brain\Games\Core;
+
+function run()
 {
-    return 'Find the greatest common divisor of given numbers.';
+    Core\startGameFlow('Find the greatest common divisor of given numbers.', 'Gcd');
 }
 
-function question()
+function generateQuestionAndAnswer()
+{
+    [$operand1, $operand2] = generateQuestionData();
+    $questionText = $operand1 . ' ' . $operand2;
+    $answerText = calculateAnswer($operand1, $operand2);
+    return [$questionText, $answerText];
+}
+
+function generateQuestionData()
 {
     $minInt = 1;
     $maxInt = 300;
     $operand1 = rand($minInt, $maxInt);
     $operand2 = rand($minInt, $maxInt);
-    return $operand1 . ' ' . $operand2;
+    return [$operand1, $operand2];
 }
 
-function logic(string $question): string
+function calculateAnswer($a, $b)
 {
-    [$a, $b] = explode(' ', $question);
     // euclidean algorithm gcd(a, b) = gcd(a % b, b)
     while ($b) {
         [$a, $b] = [$b, $a % $b];

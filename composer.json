@@ -1,7 +1,7 @@
 {
     "name": "ava/brain-games",
     "type": "library",
-    "description": "CLI games",
+    "description": "Collection of CLI games",
     "license": "MIT",
     "authors": [
         {
@@ -23,7 +23,7 @@
     "autoload": {
         "files": [
             "src/Cli.php",
-            "src/Games.php",
+            "src/Core.php",
             "src/games/Even.php",
             "src/games/Calc.php",
             "src/games/Gcd.php",

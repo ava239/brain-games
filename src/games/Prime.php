@@ -2,26 +2,41 @@
 
 namespace Brain\Games\Games\Prime;
 
-function getGameData()
+use Brain\Games\Core;
+
+function run()
 {
-    return 'Answer "yes" if given number is prime. Otherwise answer "no".';
+    Core\startGameFlow('Answer "yes" if given number is prime. Otherwise answer "no".', 'Prime');
 }
 
-function question()
+function generateQuestionAndAnswer()
+{
+    $int = generateQuestionData();
+    $questionText = (string)$int;
+    $answerText = (string)calculateAnswer($int);
+    return [$questionText, $answerText];
+}
+
+function generateQuestionData()
 {
     $minInt = 1;
     $maxInt = 500;
     $number = rand($minInt, $maxInt);
+    // generate only odd numbers, to make questions more challenging
     $number = $number * 2 + 1;
-    return (string)$number;
+    return $number;
 }
 
-function logic(string $question): string
+function calculateAnswer($number)
 {
-    $number = (int)$question;
+    return isPrime($number) ? 'yes' : 'no';
+}
+
+function isPrime($number)
+{
     $result = ($number > 1);
     for ($j = 2, $limit = $number / 2; $j <= $limit; $j++) {
         $result = $result && ($number % $j !== 0);
     }
-    return $result ? 'yes' : 'no';
+    return $result;
 }

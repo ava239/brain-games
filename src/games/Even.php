@@ -2,20 +2,29 @@
 
 namespace Brain\Games\Games\Even;
 
-function getGameData()
+use Brain\Games\Core;
+
+function run()
 {
-    return 'Answer "yes" if the number is even, otherwise answer "no".';
+    Core\startGameFlow('Answer "yes" if the number is even, otherwise answer "no".', 'Even');
 }
 
-function question(): string
+function generateQuestionAndAnswer()
+{
+    $int = generateQuestionData();
+    $questionText = (string)$int;
+    $answerText = calculateAnswer($int);
+    return [$questionText, $answerText];
+}
+
+function generateQuestionData()
 {
     $minInt = 1;
     $maxInt = 300;
-    $question = rand($minInt, $maxInt);
-    return (string)$question;
+    return rand($minInt, $maxInt);
 }
 
-function logic(string $question): string
+function calculateAnswer($int)
 {
-    return $question % 2 === 0 ? 'yes' : 'no';
+    return $int % 2 === 0 ? 'yes' : 'no';
 }

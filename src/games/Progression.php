@@ -2,12 +2,22 @@
 
 namespace Brain\Games\Games\Progression;
 
-function getGameData()
+use Brain\Games\Core;
+
+function run()
 {
-    return 'What number is missing in the progression?';
+    Core\startGameFlow('What number is missing in the progression?', 'Progression');
 }
 
-function question()
+function generateQuestionAndAnswer()
+{
+    [$progression, $answer] = generateQuestionData();
+    $questionText = implode(' ', $progression);
+    $answerText = (string)$answer;
+    return [$questionText, $answerText];
+}
+
+function generateQuestionData()
 {
     $minInt = 1;
     $maxInt = 20;
@@ -19,24 +29,7 @@ function question()
     for ($i = 0; $i < $length; $i++) {
         $progression[] = $startProgression + $i * $stepProgression;
     }
+    $answer = $progression[$hidePosition];
     $progression[$hidePosition] = '..';
-    return implode(' ', $progression);
-}
-
-function logic(string $question): string
-{
-    $progression = explode(' ', $question);
-    for ($i = 1, $len = count($progression); $i < $len; $i++) {
-        if ($progression[$i] !== '..' && $progression[$i - 1] !== '..') {
-            $stepProgression = $progression[$i] - $progression[$i - 1];
-            $startProgression = $progression[$i] - $stepProgression * $i;
-            break;
-        }
-    }
-    foreach ($progression as $key => $value) {
-        if ($value === '..') {
-            $answer = $startProgression + $key * $stepProgression;
-        }
-    }
-    return (string)$answer;
+    return [$progression, $answer];
 }
