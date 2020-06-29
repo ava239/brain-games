@@ -6,15 +6,15 @@ use Brain\Games\Core;
 
 function run()
 {
-    Core\startGameFlow('What number is missing in the progression?', 'Progression');
-}
-
-function generateQuestionAndAnswer()
-{
-    [$progression, $answer] = generateQuestionData();
-    $questionText = implode(' ', $progression);
-    $answerText = (string)$answer;
-    return [$questionText, $answerText];
+    Core\startGameFlow(
+        'What number is missing in the progression?',
+        function () {
+            [$progression, $answer] = generateQuestionData();
+            $questionText = implode(' ', $progression);
+            $answerText = (string)$answer;
+            return [$questionText, $answerText];
+        }
+    );
 }
 
 function generateQuestionData()

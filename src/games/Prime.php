@@ -6,15 +6,15 @@ use Brain\Games\Core;
 
 function run()
 {
-    Core\startGameFlow('Answer "yes" if given number is prime. Otherwise answer "no".', 'Prime');
-}
-
-function generateQuestionAndAnswer()
-{
-    $int = generateQuestionData();
-    $questionText = (string)$int;
-    $answerText = (string)calculateAnswer($int);
-    return [$questionText, $answerText];
+    Core\startGameFlow(
+        'Answer "yes" if given number is prime. Otherwise answer "no".',
+        function () {
+            $int = generateQuestionData();
+            $questionText = (string)$int;
+            $answerText = (string)calculateAnswer($int);
+            return [$questionText, $answerText];
+        }
+    );
 }
 
 function generateQuestionData()

@@ -6,15 +6,15 @@ use Brain\Games\Core;
 
 function run()
 {
-    Core\startGameFlow('Answer "yes" if the number is even, otherwise answer "no".', 'Even');
-}
-
-function generateQuestionAndAnswer()
-{
-    $int = generateQuestionData();
-    $questionText = (string)$int;
-    $answerText = calculateAnswer($int);
-    return [$questionText, $answerText];
+    Core\startGameFlow(
+        'Answer "yes" if the number is even, otherwise answer "no".',
+        function () {
+            $int = generateQuestionData();
+            $questionText = (string)$int;
+            $answerText = calculateAnswer($int);
+            return [$questionText, $answerText];
+        }
+    );
 }
 
 function generateQuestionData()
@@ -26,5 +26,10 @@ function generateQuestionData()
 
 function calculateAnswer($int)
 {
-    return $int % 2 === 0 ? 'yes' : 'no';
+    return isEven($int) ? 'yes' : 'no';
+}
+
+function isEven($int)
+{
+    return $int % 2 === 0;
 }

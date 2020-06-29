@@ -6,15 +6,15 @@ use Brain\Games\Core;
 
 function run()
 {
-    Core\startGameFlow('What is the result of the expression?', 'Calc');
-}
-
-function generateQuestionAndAnswer()
-{
-    [$operand1, $operand2, $operation] = generateQuestionData();
-    $questionText = $operand1 . ' ' . $operation . ' ' . $operand2;
-    $answerText = calculateAnswer($operand1, $operand2, $operation);
-    return [$questionText, $answerText];
+    Core\startGameFlow(
+        'What is the result of the expression?',
+        function () {
+            [$operand1, $operand2, $operation] = generateQuestionData();
+            $questionText = $operand1 . ' ' . $operation . ' ' . $operand2;
+            $answerText = calculateAnswer($operand1, $operand2, $operation);
+            return [$questionText, $answerText];
+        }
+    );
 }
 
 function generateQuestionData()
