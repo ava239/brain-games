@@ -14,12 +14,6 @@ function run()
     Core\startGameFlow(
         GAME_RULES,
         function () {
-            $startProgression = rand(MIN_NUMBER, MAX_NUMBER);
-            $stepProgression = rand(MIN_NUMBER, MAX_NUMBER);
-            $progression = [];
-            for ($i = 0; $i < PROGRESSION_LENGTH; $i++) {
-                $progression[] = $startProgression + $i * $stepProgression;
-            }
             $progression = generateProgression();
             $hidePosition = rand(0, count($progression) - 1);
             $answer = (string)$progression[$hidePosition];
@@ -32,11 +26,11 @@ function run()
 
 function generateProgression(): array
 {
-    $startProgression = rand(MIN_NUMBER, MAX_NUMBER);
-    $stepProgression = rand(MIN_NUMBER, MAX_NUMBER);
+    $progressionStart = rand(MIN_NUMBER, MAX_NUMBER);
+    $progressionStep = rand(MIN_NUMBER, MAX_NUMBER);
     $progression = [];
     for ($i = 0; $i < PROGRESSION_LENGTH; $i++) {
-        $progression[] = $startProgression + $i * $stepProgression;
+        $progression[] = $progressionStart + $i * $progressionStep;
     }
     return $progression;
 }
