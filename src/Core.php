@@ -15,16 +15,16 @@ function startGameFlow($rules, $gameDataFunction)
     $name = prompt('May I have your name?');
     line("Hello, %s!", $name);
     for ($i = 0; $i < ROUNDS_COUNT; $i++) {
-        [$questionText, $answerText] = $gameDataFunction();
-        line('Question: %s', $questionText);
+        [$question, $correctAnswer] = $gameDataFunction();
+        line('Question: %s', $question);
         $answer = prompt('Your answer');
-        if ($answer === $answerText) {
+        if ($answer === $correctAnswer) {
             line('Correct!');
         } else {
             line(
                 "'%s' is wrong answer ;(. Correct answer was '%s'.",
                 $answer,
-                $answerText
+                $correctAnswer
             );
             line("Let's try again, %s!", $name);
             return;
