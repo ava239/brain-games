@@ -4,33 +4,28 @@ namespace Brain\Games\Games\Calc;
 
 use Brain\Games\Core;
 
+const GAME_RULES = 'What is the result of the expression?';
+const MIN_NUMBER = 1;
+const MAX_NUMBER = 20;
+const OPERATIONS = ['+', '-', '*'];
+
 function run()
 {
     Core\startGameFlow(
-        'What is the result of the expression?',
+        GAME_RULES,
         function () {
-            [$operand1, $operand2, $operation] = generateQuestionData();
-            $questionText = $operand1 . ' ' . $operation . ' ' . $operand2;
-            $answerText = calculateAnswer($operand1, $operand2, $operation);
-            return [$questionText, $answerText];
+            $operand1 = rand(MIN_NUMBER, MAX_NUMBER);
+            $operand2 = rand(MIN_NUMBER, MAX_NUMBER);
+            $operation = OPERATIONS[rand(0, count(OPERATIONS) - 1)];
+            $question = $operand1 . ' ' . $operation . ' ' . $operand2;
+            $answer = (string)calculateAnswer($operand1, $operand2, $operation);
+            return [$question, $answer];
         }
     );
 }
 
-function generateQuestionData()
-{
-    $minInt = 1;
-    $maxInt = 20;
-    $operations = ['+', '-', '*'];
-    $operand1 = rand($minInt, $maxInt);
-    $operand2 = rand($minInt, $maxInt);
-    $operation = $operations[rand(0, 2)];
-    return [$operand1, $operand2, $operation];
-}
-
 function calculateAnswer($operand1, $operand2, $operation)
 {
-    $result = '';
     switch ($operation) {
         case '+':
             $result = (int)$operand1 + (int)$operand2;
@@ -40,6 +35,9 @@ function calculateAnswer($operand1, $operand2, $operation)
             break;
         case '*':
             $result = (int)$operand1 * (int)$operand2;
+            break;
+        default:
+            $result = false;
     }
-    return (string)$result;
+    return $result;
 }

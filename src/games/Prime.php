@@ -4,39 +4,34 @@ namespace Brain\Games\Games\Prime;
 
 use Brain\Games\Core;
 
+const GAME_RULES = 'Answer "yes" if given number is prime. Otherwise answer "no".';
+const MIN_NUMBER = 1;
+const MAX_NUMBER = 500;
+
 function run()
 {
     Core\startGameFlow(
-        'Answer "yes" if given number is prime. Otherwise answer "no".',
+        GAME_RULES,
         function () {
-            $int = generateQuestionData();
-            $questionText = (string)$int;
-            $answerText = (string)calculateAnswer($int);
-            return [$questionText, $answerText];
+            $number = rand(MIN_NUMBER, MAX_NUMBER);
+            // generate only odd numbers, to make questions more challenging
+            $number = $number * 2 + 1;
+            $question = (string)$number;
+            $answer = isPrime($number) ? 'yes' : 'no';
+            return [$question, $answer];
         }
     );
 }
 
-function generateQuestionData()
-{
-    $minInt = 1;
-    $maxInt = 500;
-    $number = rand($minInt, $maxInt);
-    // generate only odd numbers, to make questions more challenging
-    $number = $number * 2 + 1;
-    return $number;
-}
-
-function calculateAnswer($number)
-{
-    return isPrime($number) ? 'yes' : 'no';
-}
-
 function isPrime($number)
 {
-    $result = ($number > 1);
-    for ($j = 2, $limit = $number / 2; $j <= $limit; $j++) {
-        $result = $result && ($number % $j !== 0);
+    if ($number <= 1) {
+        return false;
     }
-    return $result;
+    for ($j = 2, $maxPossibleDivisor = $number / 2; $j <= $maxPossibleDivisor; $j++) {
+        if ($number % $j === 0) {
+            return false;
+        }
+    }
+    return true;
 }

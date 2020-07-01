@@ -4,26 +4,22 @@ namespace Brain\Games\Games\Gcd;
 
 use Brain\Games\Core;
 
+const GAME_RULES = 'Find the greatest common divisor of given numbers.';
+const MIN_NUMBER = 1;
+const MAX_NUMBER = 300;
+
 function run()
 {
     Core\startGameFlow(
-        'Find the greatest common divisor of given numbers.',
+        GAME_RULES,
         function () {
-            [$operand1, $operand2] = generateQuestionData();
-            $questionText = $operand1 . ' ' . $operand2;
-            $answerText = (string)findGCD($operand1, $operand2);
-            return [$questionText, $answerText];
+            $operand1 = rand(MIN_NUMBER, MAX_NUMBER);
+            $operand2 = rand(MIN_NUMBER, MAX_NUMBER);
+            $question = $operand1 . ' ' . $operand2;
+            $answer = (string)findGCD($operand1, $operand2);
+            return [$question, $answer];
         }
     );
-}
-
-function generateQuestionData()
-{
-    $minInt = 1;
-    $maxInt = 300;
-    $operand1 = rand($minInt, $maxInt);
-    $operand2 = rand($minInt, $maxInt);
-    return [$operand1, $operand2];
 }
 
 function findGCD($a, $b)

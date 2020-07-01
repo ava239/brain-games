@@ -4,32 +4,39 @@ namespace Brain\Games\Games\Progression;
 
 use Brain\Games\Core;
 
+const GAME_RULES = 'What number is missing in the progression?';
+const MIN_NUMBER = 1;
+const MAX_NUMBER = 20;
+const PROGRESSION_LENGTH = 10;
+
 function run()
 {
     Core\startGameFlow(
-        'What number is missing in the progression?',
+        GAME_RULES,
         function () {
-            [$progression, $answer] = generateQuestionData();
-            $questionText = implode(' ', $progression);
-            $answerText = (string)$answer;
-            return [$questionText, $answerText];
+            $startProgression = rand(MIN_NUMBER, MAX_NUMBER);
+            $stepProgression = rand(MIN_NUMBER, MAX_NUMBER);
+            $progression = [];
+            for ($i = 0; $i < PROGRESSION_LENGTH; $i++) {
+                $progression[] = $startProgression + $i * $stepProgression;
+            }
+            $progression = generateProgression();
+            $hidePosition = rand(0, count($progression) - 1);
+            $answer = (string)$progression[$hidePosition];
+            $progression[$hidePosition] = '..';
+            $question = implode(' ', $progression);
+            return [$question, $answer];
         }
     );
 }
 
-function generateQuestionData()
+function generateProgression(): array
 {
-    $minInt = 1;
-    $maxInt = 20;
-    $startProgression = rand($minInt, $maxInt);
-    $stepProgression = rand($minInt, $maxInt);
-    $length = 10;
-    $hidePosition = rand(0, $length - 1);
+    $startProgression = rand(MIN_NUMBER, MAX_NUMBER);
+    $stepProgression = rand(MIN_NUMBER, MAX_NUMBER);
     $progression = [];
-    for ($i = 0; $i < $length; $i++) {
+    for ($i = 0; $i < PROGRESSION_LENGTH; $i++) {
         $progression[] = $startProgression + $i * $stepProgression;
     }
-    $answer = $progression[$hidePosition];
-    $progression[$hidePosition] = '..';
-    return [$progression, $answer];
+    return $progression;
 }
