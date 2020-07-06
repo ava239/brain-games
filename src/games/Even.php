@@ -4,24 +4,22 @@ namespace Brain\Games\Games\Even;
 
 use Brain\Games\Core;
 
-const GAME_RULES = 'Answer "yes" if the number is even, otherwise answer "no".';
+const GAME_DESCRIPTION = 'Answer "yes" if the number is even, otherwise answer "no".';
 const MIN_NUMBER = 1;
 const MAX_NUMBER = 300;
 
 function run()
 {
-    Core\startGameFlow(
-        GAME_RULES,
-        function () {
-            $int = rand(MIN_NUMBER, MAX_NUMBER);
-            $question = (string)$int;
-            $answer = isEven($int) ? 'yes' : 'no';
-            return [$question, $answer];
-        }
-    );
+    $getGameData = function () {
+        $number = rand(MIN_NUMBER, MAX_NUMBER);
+        $question = (string)$number;
+        $answer = isEven($number) ? 'yes' : 'no';
+        return [$question, $answer];
+    };
+    Core\playGame(GAME_DESCRIPTION, $getGameData);
 }
 
-function isEven($int)
+function isEven($number): bool
 {
-    return $int % 2 === 0;
+    return $number % 2 === 0;
 }
